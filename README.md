@@ -15,7 +15,7 @@ Uploaded the data<br>
 
 cement <- read.table('hald.dat')<br>
 cement<br>
-   V1   V2 V3 V4 V5<br>
+    V1   V2 V3 V4 V5<br>
 1  78.5 7 26 6 60<br>
 2  74.3 1 29 15 52<br>
 3  104.3 11 56 8 20<br>
