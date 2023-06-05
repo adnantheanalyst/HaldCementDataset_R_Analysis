@@ -1,6 +1,6 @@
 # HaldCementDataset_R_Analysis
 
-File Hald.dat contains the information about 13 cement mixture:<br>
+I used file Hald.dat which contained the information about 13 cement mixture:<br>
 
 • column 1: Heat (cals/gm) evolved in setting, recorded to nearest tenth<br>
 • column 2: calcium aluminate<br>
@@ -9,9 +9,9 @@ File Hald.dat contains the information about 13 cement mixture:<br>
 • column 5: dicalcium silicate.<br>
 
 it is well known that some of the chemicals are partly equivalent.<br>
-The interest is the evaluation of the relationship between the heat evolved in setting and the chemicals.<br>
+My interest was to evaluate of the relationship between the heat evolved in setting and the chemicals.<br>
 
-Upload the data<br>
+Uploaded the data<br>
 
 cement <- read.table('hald.dat')<br>
 cement<br>
@@ -30,11 +30,11 @@ cement<br>
 12 113.3 11 66 9 12<br>
 13 109.4 10 68 8 12<br>
 
-Assign a name to the variables<br>
+Then, I Assigned a name to the variables<br>
 
 colnames(cement) <- c('heat','cal_alu', 'tric_sil', 'tric_fer', 'dic_sil')<br>
 
-Some preliminary graphical analyses<br>
+AFter that I did some preliminary graphical analyses<br>
 
 boxplot(cement$heat, col='grey', main='Heat')<br>
 
@@ -45,28 +45,28 @@ pairs(cement)<br>
 
 ![Residuals of the model](https://github.com/adnantheanalyst/HaldCementDataset_R_Analysis/assets/16821246/8e8f6b6e-52ea-4202-809a-e56b218468b3)
 
-Construct a first model with cal alu as covariate<br>
+Constructed my first model with cal alu as covariate<br>
 
 m.cement <- lm(heat ~ cal_alu, data=cement)<br>
 summary(m.cement)<br>
 
-Add on tric sil<br>
+Added on tric sil<br>
 
 m.cement2 <- lm(heat ~ cal_alu + tric_sil, data=cement)<br>
 summary(m.cement2)<br>
 
-Both the variables are significant; including tric sil moved R2 = 0.533948 to R2 = 0.9786784.<br>
-Add the remaining variables<br>
+Both the variables were significant; including tric sil moved R2 = 0.533948 to R2 = 0.9786784.<br>
+Added the remaining variables<br>
 
 m.cement3 <- lm(heat ~ cal_alu + tric_sil + tric_fer + dic_sil, data=cement)<br>
 summary(m.cement3)<br>
 
-No significant variable anymore...but R2 is still large...and F statistic would lead to reject the hypothesis of non-significant coefficients associated to all the covariates.... what’s wrong in the model?<br>
-Check the correlations among the variables<br>
+No significant variable were anymore...but R2 was still large...and F statistic would lead to reject the hypothesis of non-significant coefficients associated to all the covariates.... what was wrong in the model?<br>
+After that I checked the correlations among the variables<br>
 
 cor(cement)<br>
 
-Variables cal alu and tric fer are highly correlated as well as tric sil and dic sil. Including highly correlated variables in the model hides the effects on the response...the phenomenon is called multicollinearity. The practical solution is to maintain just one of the two correlated variables in the model. So we will refer to model m.cement2.<br>
+Variables cal alu and tric fer were highly correlated as well as tric sil and dic sil. Included highly correlated variables in the model which I found that hide the effects on the response...the phenomenon is called multicollinearity. The practical solution was to maintain just one of the two correlated variables in the model. So after that I refered to model m.cement2.<br>
 Residuals of the model<br>
 
 stand.res <- rstandard(m.cement2)<br>
@@ -85,4 +85,4 @@ abline(h=0, lty=2)<br>
 
 ![Residuals of the model](https://github.com/adnantheanalyst/HaldCementDataset_R_Analysis/assets/16821246/c1dda09a-3b2e-4668-b653-8acc1e931289)
 
-There are no deterministic patterns.<br>
+At last I found that there are no deterministic patterns.<br>
